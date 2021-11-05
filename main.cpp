@@ -11,25 +11,20 @@ using namespace std;
  */
 int main()
 {
-    // Variable utilisée pour recommencer le programme selon l'utilisateur
-    bool restart = true;
+    // On demande d'abord l'action que veut faire l'utilisateur
+    int choice = menuMain();
 
-    while (restart)
+    while (choice != QUIT)
     {
-        // On demande d'abord le chemin vers l'image en entrée.
+        // On demande le chemin vers l'image en entrée.
         string imgPath = menuInPath();
+
         // Puis on initialise les vecteurs représentant les composantes de l'image
-        vector<vector<int>> r, g, b;
-        loadPicture(imgPath, r, g, b);
+        vector<vector<int>> red, green, blue;
+        loadPicture(imgPath, red, green, blue);
 
-        // On déclare des variables constantes pour les composantes
-        // en entrée, pour qu'elles restent immuables.
-        const vector<vector<int>> red = r, green = g, blue = b;
-
-        // On demande l'action que veut faire l'utilisateur
-        int choice = menuMain();
-        // Puis finalement le chemin vers l'image en sortie. Elle peut être la même
-        // que celle en entrée
+        // Puis on demande le chemin vers l'image en sortie.
+        // Elle peut être la même que celle en entrée
         string toPath = menuOutPath();
 
         // On gère ensuite la commande de l'utilisateur
@@ -40,6 +35,9 @@ int main()
             break;
         case RM_C:
             rmColor(toPath, red, green, blue);
+            break;
+        case KEEP_C:
+            keepColor(toPath, red, green, blue);
             break;
         case SRCH_C:
             searchColor(red, green, blue);
@@ -53,12 +51,22 @@ int main()
         case LUM:
             lum(toPath, red, green, blue);
             break;
-        default:
-            // L'utilisateur choisit de quitter
-            restart = false;
-            cout << "Au revoir.\n";
+        case VERT_SYM:
+            vertSym(toPath, red, green, blue);
+            break;
+        case HORI_SYM:
+            horiSym(toPath, red, green, blue);
+            break;
+        case TURN_90:
+            turn90(toPath, red, green, blue);
+            break;
         }
+
+        // On redemande le choix de l'utilisateur
+        choice = menuMain();
     }
+
+    cout << "Au revoir.\n";
 
     return 0;
 }

@@ -24,9 +24,17 @@ void copy(string path,
         const vector<vector<int>>& blue);
 
 /**
- * Commande pour retirer une ou plusieurs composantes d'une image
+ * Commande pour retirer une composante d'une image
  */
 void rmColor(string path,
+        const vector<vector<int>>& red,
+        const vector<vector<int>>& green,
+        const vector<vector<int>>& blue);
+
+/**
+ * Commande pour garder seulement une composante d'une image
+ */
+void keepColor(string path,
         const vector<vector<int>>& red,
         const vector<vector<int>>& green,
         const vector<vector<int>>& blue);
@@ -58,6 +66,30 @@ void bin(string path,
  * Commande pour augmenter ou diminuer la luminosité d'une image
  */
 void lum(string path,
+        const vector<vector<int>>& red,
+        const vector<vector<int>>& green,
+        const vector<vector<int>>& blue);
+
+/**
+ * Commande pour appliquer une symmétrie verticale à une image
+ */
+void vertSym(string path,
+        const vector<vector<int>>& red,
+        const vector<vector<int>>& green,
+        const vector<vector<int>>& blue);
+
+/**
+ * Commande pour appliquer une symmétrie horizontale à une image
+ */
+void horiSym(string path,
+        const vector<vector<int>>& red,
+        const vector<vector<int>>& green,
+        const vector<vector<int>>& blue);
+
+/**
+ * Commande pour tourner une image à 90° dans le sens inverse des aiguilles d'une montre
+ */
+void turn90(string path,
         const vector<vector<int>>& red,
         const vector<vector<int>>& green,
         const vector<vector<int>>& blue);
