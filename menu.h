@@ -31,6 +31,7 @@ const vector<string> MENU = {
     "appliquer une symmétrie horizontale sur une image",
     "tourner l'image à 90° dans le sens inverse des aiguilles d'une montre",
     "appliquer un filtre à une image",
+    "appliquer le filtre de Sobel à une image",
     "quitter l'application"
 };
 
@@ -56,8 +57,10 @@ const int HORI_SYM = 9;
 const int TURN_90 = 10;
 // Appliquer un filtre à une image
 const int FILT = 11;
+// Appliquer le filtre de Sobel à une image
+const int SOB_FILT = 12;
 // Quitter l'application
-const int QUIT = 12;
+const int QUIT = 13;
 
 /**
  * Fonction qui demande à l'utilisateur le chemin d'accès à une image en entrée
@@ -77,7 +80,7 @@ string menuOutPath();
  * appliquer à l'image
  * @return Le filtre de l'utilisateur (carré)
  */
-vector<vector<int>> menuGetFilter();
+vector<vector<double>> menuGetFilter();
 
 /**
  * Fonction qui affiche le menu

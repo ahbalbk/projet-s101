@@ -63,6 +63,9 @@ int main()
         case FILT:
             filter(toPath, red, green, blue);
             break;
+        case SOB_FILT:
+            sobelFilter(toPath, red, green, blue);
+            break;
         }
 
         // On redemande le choix de l'utilisateur

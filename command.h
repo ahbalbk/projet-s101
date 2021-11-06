@@ -102,4 +102,12 @@ void filter(string path,
         const vector<vector<int>>& green,
         const vector<vector<int>>& blue);
 
+/**
+ * Commande pour appliquer les filtres de Sobel à une image
+ */
+void sobelFilter(string path,
+        const vector<vector<int>>& red,
+        const vector<vector<int>>& green,
+        const vector<vector<int>>& blue);
+
 #endif
