@@ -94,4 +94,12 @@ void turn90(string path,
         const vector<vector<int>>& green,
         const vector<vector<int>>& blue);
 
+/**
+ * Commande pour appliquer un filtre à une image
+ */
+void filter(string path,
+        const vector<vector<int>>& red,
+        const vector<vector<int>>& green,
+        const vector<vector<int>>& blue);
+
 #endif

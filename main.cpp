@@ -60,6 +60,9 @@ int main()
         case TURN_90:
             turn90(toPath, red, green, blue);
             break;
+        case FILT:
+            filter(toPath, red, green, blue);
+            break;
         }
 
         // On redemande le choix de l'utilisateur
