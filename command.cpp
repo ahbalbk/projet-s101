@@ -15,7 +15,14 @@
 #include <iostream>
 #include <string>
 
-void normalize(int& red, int& green, int& blue);
+/**
+ * Procédure utilisée pour normaliser un pixel des trois composantes
+ * Elle garantie que le pixel est compris entre 0 et 255 inclus
+ * @param red La composante rouge
+ * @param green La composante verte 
+ * @param blue La composante bleue
+ */
+inline void normalize(int& red, int& green, int& blue);
 
 /**
 * Commande pour effectuer une copie d'image
@@ -167,7 +174,14 @@ void turn90(string path,
     writePicture(path, ored, ogreen, oblue);
 }
 
-void normalize(int& red, int& green, int& blue)
+/**
+ * Procédure utilisée pour normaliser un pixel des trois composantes
+ * Elle garantie que le pixel est compris entre 0 et 255 inclus
+ * @param red La composante rouge
+ * @param green La composante verte 
+ * @param blue La composante bleue
+ */
+inline void normalize(int& red, int& green, int& blue)
 {
     if (red > 255) red = 255;
     else if (red < 0) red = 0;
@@ -221,6 +235,10 @@ void filter(string path,
                     curB += filter[fline][fcol] * (double) blue[i+fline][j+fcol];
                 }
             }
+
+            // On normalise les valeurs pour qu'elles soient comprises
+            // entre 0 et 255
+            normalize(curR, curG, curB);
 
             // On assigne aux pixels des composantes en sortie leur valeur correspondante
             ored[i+mid][j+mid] = curR;
@@ -284,6 +302,8 @@ void sobelFilter(string path,
                 }
             }
 
+            // On normalise les valeurs pour qu'elles soient comprises
+            // entre 0 et 255
             normalize(curRA, curGA, curBA);
             normalize(curRB, curGB, curBB);
             // On assigne aux pixels des composantes en sortie leur valeur correspondante
