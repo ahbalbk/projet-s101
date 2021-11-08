@@ -15,6 +15,8 @@
 #include <iostream>
 #include <string>
 
+void normalize(int& red, int& green, int& blue);
+
 /**
 * Commande pour effectuer une copie d'image
 */
@@ -23,7 +25,7 @@ void copy(string path,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
-writePicture(path, red, green, blue);
+    writePicture(path, red, green, blue);
 }
 
 /**
@@ -91,25 +93,25 @@ void vertSym(string path,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
-// Les composantes en retour (o pour output)
-vector<vector<int>> ored = red, ogreen = green, oblue = blue;
+    // Les composantes en retour (o pour output)
+    vector<vector<int>> ored = red, ogreen = green, oblue = blue;
 
-for (int i = 0; i < oblue.size(); i++)
-{
-    for (int j = 0; j < oblue.size(); j++)
+    for (int i = 0; i < oblue.size(); i++)
     {
-        // On inverse l'ordre des colonnes
-        // Donc on assigne au pixel à la colonne j le pixel à la colonne n-j
-        // (avec n la taille de l'image)
-        // Les indices commencent à 0, donc on n'oublie pas de soustraire - 1
-        // pour éviter de donner un indice trop grand
-        oblue[i][j] = blue[i][blue.size()-j-1];
-        ogreen[i][j] = green[i][green.size()-j-1];
-        ored[i][j] = red[i][red.size()-j-1];
+        for (int j = 0; j < oblue.size(); j++)
+        {
+            // On inverse l'ordre des colonnes
+            // Donc on assigne au pixel à la colonne j le pixel à la colonne n-j
+            // (avec n la taille de l'image)
+            // Les indices commencent à 0, donc on n'oublie pas de soustraire - 1
+            // pour éviter de donner un indice trop grand
+            oblue[i][j] = blue[i][blue.size()-j-1];
+            ogreen[i][j] = green[i][green.size()-j-1];
+            ored[i][j] = red[i][red.size()-j-1];
+        }
     }
-}
 
-writePicture(path, ored, ogreen, oblue);
+    writePicture(path, ored, ogreen, oblue);
 }
 
 /**
@@ -120,102 +122,114 @@ void horiSym(string path,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
-// Les composantes en retour (o pour output)
-vector<vector<int>> ored = red, ogreen = green, oblue = blue;
+    // Les composantes en retour (o pour output)
+    vector<vector<int>> ored = red, ogreen = green, oblue = blue;
 
-for (int i = 0; i < oblue.size(); i++)
-{
-    // On inverse l'ordre des lignes
-    // Donc on assigne au pixel à la ligne i le pixel à la ligne n-i
-    // (avec n la taille de l'image)
-    // Sans oublier le -1 car les indices commencent à 0
-    oblue[i] = blue[blue.size()-i-1];
-    ogreen[i] = green[green.size()-i-1];
-    ored[i] = red[red.size()-i-1];
-}
+    for (int i = 0; i < oblue.size(); i++)
+    {
+        // On inverse l'ordre des lignes
+        // Donc on assigne au pixel à la ligne i le pixel à la ligne n-i
+        // (avec n la taille de l'image)
+        // Sans oublier le -1 car les indices commencent à 0
+        oblue[i] = blue[blue.size()-i-1];
+        ogreen[i] = green[green.size()-i-1];
+        ored[i] = red[red.size()-i-1];
+    }
 
-writePicture(path, ored, ogreen, oblue);
+    writePicture(path, ored, ogreen, oblue);
 }
 
 /**
-* Commande pour tourner une image à 90° dans le sens inverse des aiguilles d'une montre
-*/
+ * Commande pour tourner une image à 90° dans le sens inverse des aiguilles d'une montre
+ */
 void turn90(string path,
     const vector<vector<int>>& red,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
-// Les composantes en retour (o pour output)
-vector<vector<int>> ored = red, ogreen = green, oblue = blue;
+    // Les composantes en retour (o pour output)
+    vector<vector<int>> ored = red, ogreen = green, oblue = blue;
 
-for (int i = 0; i < oblue.size(); i++)
-{
-    for (int j = 0; j < oblue.size(); j++)
+    for (int i = 0; i < oblue.size(); i++)
     {
-        // Pour tourner l'image à 90°, on inverse les lignes et les colonnes
-        // Cela a pour effect d'appliquer une symmétrie diagonale
-        // il faut donc en plus appliquer une symmétrie horizontale, 
-        // pour pouvoir la tourner dans le sens inverse des aiguilles d'une montre
-        oblue[i][j] = blue[j][blue.size()-i-1];
-        ogreen[i][j] = green[j][green.size()-i-1];
-        ored[i][j] = red[j][red.size()-i-1];
+        for (int j = 0; j < oblue.size(); j++)
+        {
+            // Pour tourner l'image à 90°, on inverse les lignes et les colonnes
+            // Cela a pour effect d'appliquer une symmétrie diagonale
+            // il faut donc en plus appliquer une symmétrie horizontale, 
+            // pour pouvoir la tourner dans le sens inverse des aiguilles d'une montre
+            oblue[i][j] = blue[j][blue.size()-i-1];
+            ogreen[i][j] = green[j][green.size()-i-1];
+            ored[i][j] = red[j][red.size()-i-1];
+        }
     }
+
+    writePicture(path, ored, ogreen, oblue);
 }
 
-writePicture(path, ored, ogreen, oblue);
+void normalize(int& red, int& green, int& blue)
+{
+    if (red > 255) red = 255;
+    else if (red < 0) red = 0;
+
+    if (green > 255) green = 255;
+    else if (green < 0) green = 0;
+
+    if (blue > 255) blue = 255;
+    else if (blue < 0) blue = 0;
 }
 
 /**
-* Commande pour appliquer un filtre à une image
-*/
+ * Commande pour appliquer un filtre à une image
+ */
 void filter(string path,
     const vector<vector<int>>& red,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
-// On demande à l'utilisateur de saisir le filtre
-vector<vector<double>> filter = menuGetFilter();
-// L'indice du milieu du filtre
-int mid = filter.size()/2;
+    // On demande à l'utilisateur de saisir le filtre
+    vector<vector<double>> filter = menuGetFilter();
+    // L'indice du milieu du filtre
+    int mid = filter.size()/2;
 
-// On initialise toutes les composantes de sortie en noir
-vector<int> blackLine(blue.size(), 0);
-vector<vector<int>> blackComp(blue.size(), blackLine);
-vector<vector<int>> ored = blackComp, ogreen = blackComp, oblue = blackComp;
+    // On initialise toutes les composantes de sortie en noir
+    vector<int> blackLine(blue.size(), 0);
+    vector<vector<int>> blackComp(blue.size(), blackLine);
+    vector<vector<int>> ored = blackComp, ogreen = blackComp, oblue = blackComp;
 
-// On parcourt toute l'image du premier pixel jusqu'au nImage-nFiltre-ième pixel
-// avec nImage la taille de l'image et nFiltre la taille du filtre
-// pour opérer sur les pixels visés par le milieu du filtre (i+mid, j+mid)
-// Ainsi, les pixels au bord de l'image ne sont pas touchés
-for (int i = 0; i <= oblue.size()-filter.size(); i++)
-{
-    for (int j = 0; j <= oblue.size()-filter.size(); j++)
+    // On parcourt toute l'image du premier pixel jusqu'au nImage-nFiltre-ième pixel
+    // avec nImage la taille de l'image et nFiltre la taille du filtre
+    // pour opérer sur les pixels visés par le milieu du filtre (i+mid, j+mid)
+    // Ainsi, les pixels au bord de l'image ne sont pas touchés
+    for (int i = 0; i <= oblue.size()-filter.size(); i++)
     {
-        // Les valeurs qui vont être assignées aux composantes de chaque pixel
-        int curR = 0, curG = 0, curB = 0;
-
-        // On parcourt le filtre à chaque pixel
-        for (int fline = 0; fline < filter.size(); fline++)
+        for (int j = 0; j <= oblue.size()-filter.size(); j++)
         {
-            for (int fcol = 0; fcol < filter.size(); fcol++)
+            // Les valeurs qui vont être assignées aux composantes de chaque pixel
+            int curR = 0, curG = 0, curB = 0;
+
+            // On parcourt le filtre à chaque pixel
+            for (int fline = 0; fline < filter.size(); fline++)
             {
-                // On multiplie la valeur dans le filtre
-                // par le pixel à l'indice [i+fline][j+fcol]
-                // et on additionne le résultat à la composante en sortie
-                curR += filter[fline][fcol] * (double) red[i+fline][j+fcol];
-                curG += filter[fline][fcol] * (double) green[i+fline][j+fcol];
-                curB += filter[fline][fcol] * (double) blue[i+fline][j+fcol];
+                for (int fcol = 0; fcol < filter.size(); fcol++)
+                {
+                    // On multiplie la valeur dans le filtre
+                    // par le pixel à l'indice [i+fline][j+fcol]
+                    // et on additionne le résultat à la composante en sortie
+                    curR += filter[fline][fcol] * (double) red[i+fline][j+fcol];
+                    curG += filter[fline][fcol] * (double) green[i+fline][j+fcol];
+                    curB += filter[fline][fcol] * (double) blue[i+fline][j+fcol];
+                }
             }
+
+            // On assigne aux pixels des composantes en sortie leur valeur correspondante
+            ored[i+mid][j+mid] = curR;
+            ogreen[i+mid][j+mid] = curG;
+            oblue[i+mid][j+mid] = curB;
         }
-
-        // On assigne aux pixels des composantes en sortie leur valeur correspondante
-        ored[i+mid][j+mid] = curR;
-        ogreen[i+mid][j+mid] = curG;
-        oblue[i+mid][j+mid] = curB;
     }
-}
 
-writePicture(path, ored, ogreen, oblue);
+    writePicture(path, ored, ogreen, oblue);
 }
 
 /**
@@ -270,6 +284,8 @@ void sobelFilter(string path,
                 }
             }
 
+            normalize(curRA, curGA, curBA);
+            normalize(curRB, curGB, curBB);
             // On assigne aux pixels des composantes en sortie leur valeur correspondante
             ored[i+mid][j+mid] = sqrt(curRA*curRA + curRB*curRB);
             ogreen[i+mid][j+mid] = sqrt(curGA*curGA + curGB*curGB);
