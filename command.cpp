@@ -25,6 +25,7 @@
 inline void normalize(int& red, int& green, int& blue);
 
 /**
+ * Mohamed Yaiche
 * Commande pour effectuer une copie d'image
 */
 void copy(string path,
@@ -36,6 +37,22 @@ void copy(string path,
 }
 
 /**
+ * Ahmad Baalbaky
+ * Fonction qui retourne une composante noire de la même taille que celle en entrée
+ * Elle est utilisée pour supprimer une composante d'une image
+ *
+ * @param comp La composante en entrée
+ * @return Une composante noire de même taille
+ */
+vector<vector<int>> black(const vector<vector<int>>& comp)
+{
+    vector<int> blackLine(comp.size(), 0);
+    vector<vector<int>> out(comp.size(), blackLine);
+    return out;
+}
+
+/**
+ * Mohamed Yaiche
 * Commande pour retirer une composante d'une image
 */
 void rmColor(string path,
@@ -43,10 +60,26 @@ void rmColor(string path,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
-
+    int color = menuGetColor("Choisissez la couleur à retirer");
+    vector<vector<int>> blackC = black(blue);
+    switch (color)
+    {
+    case RED:
+        writePicture(path, blackC, green, blue);
+        break;
+    case GREEN:
+        writePicture(path, red, blackC, blue);
+        break;
+    case BLUE:
+        writePicture(path, red, green, blackC);
+        break;
+    default:
+        menuUnimplemented();
+    }
 }
 
 /**
+ * Mohamed Yaiche
 * Commande pour garder seulement une composante d'une image
 */
 void keepColor(string path,
@@ -54,36 +87,108 @@ void keepColor(string path,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
+    int color = menuGetColor("Choisissez la couleur à garder");
+    vector<vector<int>> blackC = black(blue);
+    switch (color)
+    {
+    case RED:
+        writePicture(path, red, blackC, blackC);
+        break;
+    case GREEN:
+        writePicture(path, blackC, green, blackC);
+        break;
+    case BLUE:
+        writePicture(path, blackC, blackC, blue);
+        break;
+    default:
+        menuUnimplemented();
+    }
 }
 
-
 /**
+ * Fonction utilisée pour savoir si une image est noire ou non
+ *
+ * @param comp La composante en question
+ * @return Vrai si la composante est présente, faux sinon
+ */
+inline bool isPresent(const vector<vector<int>>& comp)
+{
+    for (int i = 0; i < comp.size(); i++)
+    {
+        for (int j = 0; j < comp.size(); j++)
+        {
+            if (comp[i][j] > 0) return true;
+        }
+    }
+    return false;
+}
+/**
+ * Mohamed Yaiche
 * Commande pour rechercher la présence d'une composante dans une image
 */
 void searchColor(const vector<vector<int>>& red,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
-{}
+{
+    int color = menuGetColor("Choisissez la couleur à rechercher");
+    bool found;
+
+    switch (color)
+    {
+    case RED:
+        found = isPresent(red);
+        break;
+    case GREEN:
+        found = isPresent(green);
+        break;
+    case BLUE:
+        found = isPresent(blue);
+        break;
+    default:
+        menuUnimplemented();
+    }
+
+    string sentence = found ? " est bien " : " n'est pas ";
+    cout << "La couleur " << C_MENU[color-1] << sentence << "présente dans l'image.\n";
+}
 
 /**
+ * Mohamed Yaiche
 * Commande pour écrire la négation d'une image
 */
 void neg(string path,
     const vector<vector<int>>& red,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
-{}
+{
+    vector<vector<int>> ored = red, ogreen = green, oblue = blue;
+
+    for (int i = 0; i < red.size(); i++)
+    {
+        for (int j = 0; j < red.size(); j++)
+        {
+            ored[i][j] = 255 - red[i][j];
+            ogreen[i][j] = 255 - green[i][j];
+            oblue[i][j] = 255 - blue[i][j];
+        }
+    }
+
+    writePicture(path, ored, ogreen, oblue);
+}
 
 /**
+ * Mohamed Yaiche
 * Commande pour binariser une image
 */
 void bin(string path,
     const vector<vector<int>>& red,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
-{}
+{
+}
 
 /**
+ * Mohamed Yaiche
 * Commande pour augmenter ou diminuer la luminosité d'une image
 */
 void lum(string path,
@@ -259,9 +364,9 @@ void sobelFilter(string path,
     const vector<vector<int>>& blue)
 {
     vector<vector<int>> filterA = {
-        {1, 2, 1},
+        {-1, -2, -1},
         {0, 0, 0},
-        {-1, -2, -1}
+        {1, 2, 1}
     }, filterB = {
         {1, 0, -1},
         {2, 0, -2},

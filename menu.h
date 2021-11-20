@@ -19,6 +19,9 @@
 
 using namespace std;
 
+/**
+ * Liste des commandes disponibles dans le menu
+ */
 const vector<string> MENU = {
     "copier une image",
     "retirer une composante d'une image",
@@ -63,6 +66,27 @@ const int SOB_FILT = 12;
 const int QUIT = 13;
 
 /**
+ * Liste des couleurs sélectionnables par l'utilisateur dans le menu
+ * pour retirer, rechercher ou garder une couleur
+ *
+ * La couleur bleue doit rester en dernière position
+ */
+const vector<string> C_MENU = {
+    "Rouge",
+    "Vert",
+    "Bleu"
+};
+
+/**
+ * Indices des couleurs sélectionnées par l'utilisateur dans le menu
+ *
+ * La couleur bleue doit rester en dernière position
+ */
+const int RED = 1;
+const int GREEN = 2;
+const int BLUE = 3;
+
+/**
  * Fonction qui demande à l'utilisateur le chemin d'accès à une image en entrée
  * au format PPM
  * @return Le chemin d'accès spécifié par l'utilisateur
@@ -81,6 +105,23 @@ string menuOutPath();
  * @return Le filtre de l'utilisateur (carré)
  */
 vector<vector<double>> menuGetFilter();
+
+/**
+ * Fonction qui demande à l'utilisateur de sélectionner une couleur
+ * @param msg Le message demandé à l'utilisateur
+ * @return Le choix de l'utilisateur
+ */
+int menuGetColor(const string& msg);
+
+/**
+ * Procédure utilisée pour avertir l'utilisateur qu'une fonctionnalité
+ * n'est pas encore implémentée dans le programme.
+ *
+ * Elle sert pour rajouter une fonctionnalité au programme, commme
+ * un nouveau choix de couleur, un nouveau menu,
+ * au cas où le code n'aurait pas été totalement mis à jour.
+ */
+void menuUnimplemented();
 
 /**
  * Fonction qui affiche le menu

@@ -1,3 +1,12 @@
+/**
+ * Projet S101 - Jouer avec les images
+ * Ahmad Baalbaky, Mohamed Yaiche
+ *
+ * Dans tout le projet, on considère que les images sont carrées
+ * Ainsi, pour optimiser le temps d'exécution, nous écrirons :
+ * `comp.size()` à la place de `comp[i].size()`.
+ */
+
 #include "ppmio.h"
 #include "menu.h"
 #include "command.h"
@@ -19,53 +28,53 @@ int main()
         // On demande le chemin vers l'image en entrée.
         string imgPath = menuInPath();
 
-        // Puis on initialise les vecteurs représentant les composantes de l'image
+        // On initialise les vecteurs représentant les composantes de l'image
         vector<vector<int>> red, green, blue;
         loadPicture(imgPath, red, green, blue);
-
-        // Puis on demande le chemin vers l'image en sortie.
-        // Elle peut être la même que celle en entrée
-        string toPath = menuOutPath();
 
         // On gère ensuite la commande de l'utilisateur
         switch (choice)
         {
         case COPY:
-            copy(toPath, red, green, blue);
+            // En appelant la fonction menuOutPath()
+            // On lui demande le chemin en sortie
+            copy(menuOutPath(), red, green, blue);
             break;
         case RM_C:
-            rmColor(toPath, red, green, blue);
+            rmColor(menuOutPath(), red, green, blue);
             break;
         case KEEP_C:
-            keepColor(toPath, red, green, blue);
+            keepColor(menuOutPath(), red, green, blue);
             break;
         case SRCH_C:
             searchColor(red, green, blue);
             break;
         case NEG:
-            neg(toPath, red, green, blue);
+            neg(menuOutPath(), red, green, blue);
             break;
         case BIN:
-            bin(toPath, red, green, blue);
+            bin(menuOutPath(), red, green, blue);
             break;
         case LUM:
-            lum(toPath, red, green, blue);
+            lum(menuOutPath(), red, green, blue);
             break;
         case VERT_SYM:
-            vertSym(toPath, red, green, blue);
+            vertSym(menuOutPath(), red, green, blue);
             break;
         case HORI_SYM:
-            horiSym(toPath, red, green, blue);
+            horiSym(menuOutPath(), red, green, blue);
             break;
         case TURN_90:
-            turn90(toPath, red, green, blue);
+            turn90(menuOutPath(), red, green, blue);
             break;
         case FILT:
-            filter(toPath, red, green, blue);
+            filter(menuOutPath(), red, green, blue);
             break;
         case SOB_FILT:
-            sobelFilter(toPath, red, green, blue);
+            sobelFilter(menuOutPath(), red, green, blue);
             break;
+        default:
+            menuUnimplemented();
         }
 
         // On redemande le choix de l'utilisateur

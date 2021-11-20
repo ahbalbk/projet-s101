@@ -97,6 +97,35 @@ vector<vector<double>> menuGetFilter()
 }
 
 /**
+ * Fonction qui demande à l'utilisateur de sélectionner une couleur
+ * @param msg Le message demandé à l'utilisateur
+ * @return Le choix de l'utilisateur
+ */
+int menuGetColor(const string& msg)
+{
+    // On affiche les couleurs disponibles
+    for (int i = 0; i < C_MENU.size(); i++)
+    {
+        cout << i + 1 << " - " << C_MENU[i] << ".\n";
+    }
+
+    return askNum(msg, 1, BLUE);
+}
+
+/**
+ * Procédure utilisée pour avertir l'utilisateur qu'une fonctionnalité
+ * n'est pas encore implémentée dans le programme.
+ *
+ * Elle sert pour rajouter une fonctionnalité au programme, commme
+ * un nouveau choix de couleur, un nouveau menu,
+ * au cas où le code n'aurait pas été totalement mis à jour.
+ */
+void menuUnimplemented()
+{
+    cout << "Cette fonctionnalité n'est pas encore implémentée.\n";
+}
+
+/**
  * Fonction qui affiche le menu
  * @return Le choix de l'utilisateur
  */
@@ -112,7 +141,7 @@ int menuMain()
     }
 
     // On retourne finalement la saisie
-    return askNum("Choisissez un menu", 0, QUIT);;
+    return askNum("Choisissez un menu", 1, QUIT);;
 }
 
 
