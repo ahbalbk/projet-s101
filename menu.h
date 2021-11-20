@@ -1,4 +1,5 @@
 /**
+ * Ahmad Baalbaky
  * Fichier d'en-tête contenant les fonctions utilitaires
  * gérant l'interaction avec l'utilisateur.
  *
@@ -87,6 +88,16 @@ const int GREEN = 2;
 const int BLUE = 3;
 
 /**
+ * Fonction utilisée pour afficher un message
+ * puis fait saisir un nombre à l'utilisateur entre min et max
+ * @param msg Le message à afficher
+ * @param min Le nombre minimum à saisir
+ * @param max Le nombre maximum à saisir
+ * @return Le nombre correct saisit par l'utilisateur
+ */
+int menuAskNum(const string& msg, int min, int max);
+
+/**
  * Fonction qui demande à l'utilisateur le chemin d'accès à une image en entrée
  * au format PPM
  * @return Le chemin d'accès spécifié par l'utilisateur
@@ -122,6 +133,11 @@ int menuGetColor(const string& msg);
  * au cas où le code n'aurait pas été totalement mis à jour.
  */
 void menuUnimplemented();
+
+/**
+ * Fonction utilisée pour demander à l'utilisateur de recommencer le programme
+ */
+char menuAskBegin();
 
 /**
  * Fonction qui affiche le menu

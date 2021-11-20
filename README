@@ -1,0 +1,16 @@
+Projet S101 - Jouer avec les images
+Ahmad Baalbaky, Mohamed Yaiche
+
+Le programme comporte un menu entièrement réalisé par Ahmad Baalbaky.
+Le menu est réalisé de telle à sorte à pouvoir rajouter facilement une fonctionnalité, et rend le code plus modulaire.
+Le menu comporte également des sous-menus.
+
+Les commandes sont réalisées par Mohamed Yaiche et Ahmad Baalbaky.
+
+Le menu demande à l'utilisateur toutes les fonctionnalités demandées par le sujet. Il permet de copier une image, de choisir une couleur à rechercher, retirer ou à garder exclusivement, enregistrer la version négative et binarisée d'une image, pouvoir changer sa luminosité, appliquer une symmétrie horizontale ou verticale, la retourner à 90°, y appliquer un filtre en entrée en y choisissant une taille, ainsi qu'y appliquer les filtres de Sobel.
+Si l'utilisateur entre une mauvaise valeur, le programme lui redemande jusqu'à ce que la valeur soit correcte.
+
+Les fonctionnalités de la partie I et les symmétries ont été écrites par Mohamed Yaiche.
+Les fonctionnalités de la partie III ont été écrites par Ahmad Baalbaky.
+
+

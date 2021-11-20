@@ -1,3 +1,7 @@
+/**
+ * Ahmad Baalbaky
+ */
+
 #include "menu.h"
 #include <iostream>
 #include <string>
@@ -26,7 +30,7 @@ inline string askPath(const string& msg)
  * @param max Le nombre maximum à saisir
  * @return Le nombre correct saisit par l'utilisateur
  */
-int askNum(const string& msg, int min, int max)
+int menuAskNum(const string& msg, int min, int max)
 {
     cout << msg << " :\n>> ";
     int n;
@@ -67,7 +71,7 @@ string menuOutPath()
 vector<vector<double>> menuGetFilter()
 {
     // On demande la taille du filtre carré à l'utilisateur
-    int n = askNum("Veuillez spécifier la taille de votre filtre", 3, 9); 
+    int n = menuAskNum("Veuillez spécifier la taille de votre filtre", 3, 9); 
     // On initialise le vecteur en spécifiant la taille par ligne (n)
     vector<vector<double>> filter;
     filter.reserve(n);
@@ -109,7 +113,7 @@ int menuGetColor(const string& msg)
         cout << i + 1 << " - " << C_MENU[i] << ".\n";
     }
 
-    return askNum(msg, 1, BLUE);
+    return menuAskNum(msg, 1, BLUE);
 }
 
 /**
@@ -123,6 +127,17 @@ int menuGetColor(const string& msg)
 void menuUnimplemented()
 {
     cout << "Cette fonctionnalité n'est pas encore implémentée.\n";
+}
+
+/**
+ * Fonction utilisée pour demander à l'utilisateur de recommencer le programme
+ */
+char menuAskBegin()
+{
+    char out;
+    cout << "Voulez-vous recommencer ou quitter le programme ? (O pour oui)\n>> ";
+    cin >> out;
+    return out;
 }
 
 /**
@@ -141,7 +156,7 @@ int menuMain()
     }
 
     // On retourne finalement la saisie
-    return askNum("Choisissez un menu", 1, QUIT);;
+    return menuAskNum("Choisissez un menu", 1, QUIT);;
 }
 
 

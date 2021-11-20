@@ -20,11 +20,15 @@ using namespace std;
  */
 int main()
 {
-    // On demande d'abord l'action que veut faire l'utilisateur
-    int choice = menuMain();
+    int replay;
 
-    while (choice != QUIT)
+    do
     {
+        // On demande d'abord l'action que veut faire l'utilisateur
+        int choice = menuMain();
+        // pour éviter de demander l'image en entrée à l'utilisateur
+        if (choice == QUIT) break;
+
         // On demande le chemin vers l'image en entrée.
         string imgPath = menuInPath();
 
@@ -77,9 +81,10 @@ int main()
             menuUnimplemented();
         }
 
-        // On redemande le choix de l'utilisateur
-        choice = menuMain();
+        // On demande à l'utilisateur s'il veut recommencer
+        replay = menuAskBegin();
     }
+    while (replay == 'O' || replay == 'o');
 
     cout << "Au revoir.\n";
 

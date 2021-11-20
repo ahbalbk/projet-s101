@@ -78,6 +78,7 @@ void lum(string path,
         const vector<vector<int>>& blue);
 
 /**
+ * Mohamed Yaiche
  * Commande pour appliquer une symmétrie verticale à une image
  */
 void vertSym(string path,
@@ -86,6 +87,7 @@ void vertSym(string path,
         const vector<vector<int>>& blue);
 
 /**
+ * Mohamed Yaiche
  * Commande pour appliquer une symmétrie horizontale à une image
  */
 void horiSym(string path,

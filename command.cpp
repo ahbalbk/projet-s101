@@ -106,6 +106,7 @@ void keepColor(string path,
 }
 
 /**
+ * Ahmad Baalbaky
  * Fonction utilisée pour savoir si une image est noire ou non
  *
  * @param comp La composante en question
@@ -185,6 +186,48 @@ void bin(string path,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
 {
+    vector<vector<int>> ored = red, ogreen = green, oblue = blue;
+    int seuil = menuAskNum("Entrez un seuil pour la binarisation", 0, 255);
+
+    for (int i = 0; i < red.size(); i++)
+    {
+        for (int j = 0; j < red.size(); j++)
+        {
+            if (red[i][j] > seuil && green[i][j] > seuil && blue[i][j] > seuil)
+            {
+                ored[i][j] = 255;
+                ogreen[i][j] = 255;
+                oblue[i][j] = 255;
+            }
+            else
+            {
+                ored[i][j] = 0;
+                ogreen[i][j] = 0;
+                oblue[i][j] = 0;
+            }
+        }
+    }
+
+    writePicture(path, ored, ogreen, oblue);
+}
+
+/**
+ * Procédure utilisée pour normaliser un pixel des trois composantes
+ * Elle garantie que le pixel est compris entre 0 et 255 inclus
+ * @param red La composante rouge
+ * @param green La composante verte 
+ * @param blue La composante bleue
+ */
+void normalize(int& red, int& green, int& blue)
+{
+    if (red > 255) red = 255;
+    else if (red < 0) red = 0;
+
+    if (green > 255) green = 255;
+    else if (green < 0) green = 0;
+
+    if (blue > 255) blue = 255;
+    else if (blue < 0) blue = 0;
 }
 
 /**
@@ -195,9 +238,25 @@ void lum(string path,
     const vector<vector<int>>& red,
     const vector<vector<int>>& green,
     const vector<vector<int>>& blue)
-{}
+{
+    vector<vector<int>> ored = red, ogreen = green, oblue = blue;
+    int a = menuAskNum("Entrez un seuil changer la luminosité", 0, 255);
+
+    for (int i = 0; i < red.size(); i++)
+    {
+        for (int j = 0; j < red.size(); j++)
+        {
+            ored[i][j] = a*red[i][j];
+            ogreen[i][j] = a*green[i][j];
+            oblue[i][j] = a*blue[i][j];
+
+            normalize(ored[i][j], ogreen[i][j], oblue[i][j]);
+        }
+    }
+}
 
 /**
+ * Mohamed Yaiche
 * Commande pour appliquer une symmétrie verticale à une image
 */
 void vertSym(string path,
@@ -227,6 +286,7 @@ void vertSym(string path,
 }
 
 /**
+ * Mohamed Yaiche
 * Commande pour appliquer une symmétrie horizontale à une image
 */
 void horiSym(string path,
@@ -277,25 +337,6 @@ void turn90(string path,
     }
 
     writePicture(path, ored, ogreen, oblue);
-}
-
-/**
- * Procédure utilisée pour normaliser un pixel des trois composantes
- * Elle garantie que le pixel est compris entre 0 et 255 inclus
- * @param red La composante rouge
- * @param green La composante verte 
- * @param blue La composante bleue
- */
-inline void normalize(int& red, int& green, int& blue)
-{
-    if (red > 255) red = 255;
-    else if (red < 0) red = 0;
-
-    if (green > 255) green = 255;
-    else if (green < 0) green = 0;
-
-    if (blue > 255) blue = 255;
-    else if (blue < 0) blue = 0;
 }
 
 /**
