@@ -240,7 +240,7 @@ void lum(string path,
     const vector<vector<int>>& blue)
 {
     vector<vector<int>> ored = red, ogreen = green, oblue = blue;
-    int a = menuAskNum("Entrez un seuil changer la luminosité", 0, 255);
+    int a = menuAskNum("Entrez un seuil pour changer la luminosité", 0, 255);
 
     for (int i = 0; i < red.size(); i++)
     {
@@ -253,6 +253,8 @@ void lum(string path,
             normalize(ored[i][j], ogreen[i][j], oblue[i][j]);
         }
     }
+
+    writePicture(path, ored, ogreen, oblue);
 }
 
 /**
@@ -353,9 +355,7 @@ void filter(string path,
     int mid = filter.size()/2;
 
     // On initialise toutes les composantes de sortie en noir
-    vector<int> blackLine(blue.size(), 0);
-    vector<vector<int>> blackComp(blue.size(), blackLine);
-    vector<vector<int>> ored = blackComp, ogreen = blackComp, oblue = blackComp;
+    vector<vector<int>> ored = black(red), ogreen = ored, oblue = ogreen;
 
     // On parcourt toute l'image du premier pixel jusqu'au nImage-nFiltre-ième pixel
     // avec nImage la taille de l'image et nFiltre la taille du filtre
@@ -417,9 +417,7 @@ void sobelFilter(string path,
     int mid = 1;
 
     // On initialise toutes les composantes de sortie en noir
-    vector<int> blackLine(blue.size(), 0);
-    vector<vector<int>> blackComp(blue.size(), blackLine);
-    vector<vector<int>> ored = blackComp, ogreen = blackComp, oblue = blackComp;
+    vector<vector<int>> ored = black(red), ogreen = ored, oblue = ogreen;
 
     for (int i = 0; i <= oblue.size()-filterA.size(); i++)
     {
