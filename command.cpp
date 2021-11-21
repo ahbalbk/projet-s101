@@ -16,15 +16,6 @@
 #include <string>
 
 /**
- * Procédure utilisée pour normaliser un pixel des trois composantes
- * Elle garantie que le pixel est compris entre 0 et 255 inclus
- * @param red La composante rouge
- * @param green La composante verte 
- * @param blue La composante bleue
- */
-inline void normalize(int& red, int& green, int& blue);
-
-/**
  * Mohamed Yaiche
 * Commande pour effectuer une copie d'image
 */
@@ -112,7 +103,7 @@ void keepColor(string path,
  * @param comp La composante en question
  * @return Vrai si la composante est présente, faux sinon
  */
-inline bool isPresent(const vector<vector<int>>& comp)
+bool isPresent(const vector<vector<int>>& comp)
 {
     for (int i = 0; i < comp.size(); i++)
     {
@@ -212,8 +203,10 @@ void bin(string path,
 }
 
 /**
+ * Ahmad Baalbaky
  * Procédure utilisée pour normaliser un pixel des trois composantes
  * Elle garantie que le pixel est compris entre 0 et 255 inclus
+ *
  * @param red La composante rouge
  * @param green La composante verte 
  * @param blue La composante bleue
